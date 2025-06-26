@@ -1,0 +1,44 @@
+# Core Dependencies
+python-dotenv>=1.0.0
+langchain>=0.0.300
+langchain-openai>=0.0.5
+langchain-community>=0.3.26
+openai>=1.0.0
+fastapi>=0.104.0
+uvicorn>=0.24.0
+python-multipart>=0.0.6
+
+# Web Framework
+fastapi>=0.104.0
+uvicorn>=0.24.0
+python-multipart>=0.0.6
+
+# Frontend
+streamlit>=1.25.0
+streamlit-chat>=0.1.1
+
+# Database
+redis>=5.0.0
+
+# GitHub Integration
+PyGithub>=2.0.0
+gitpython>=3.1.0
+
+# Utilities
+pydantic>=2.0.0
+tiktoken>=0.5.0
+python-jose[cryptography]>=3.3.0
+passlib[bcrypt]>=1.7.4
+python-multipart>=0.0.6
+
+# Testing
+pytest>=7.4.0
+pytest-asyncio>=0.21.0
+httpx>=0.25.0
+
+# Development
+black>=23.0.0
+isort>=5.12.0
+mypy>=1.0.0
+flake8>=6.0.0
+pre-commit>=3.3.0

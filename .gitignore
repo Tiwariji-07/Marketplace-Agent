@@ -1,0 +1,12 @@
+__pycache__/
+.env
+.env.dev
+.env.prod
+.env.test
+dist/
+main.log
+migrations/
+static/
+tests/
+.tox/
+.venv/
