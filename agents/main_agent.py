@@ -31,6 +31,7 @@ from langchain.schema.messages import SystemMessage
 from utils.config import settings
 from .tools.git_analyzer import GitHubAnalyzer
 from .tools.api_caller import APICaller
+from .tools.image_generator import ImageGenerator
 # Only MessageRole is needed here; use absolute import to avoid relative-package issues
 from api.models import MessageRole
 
@@ -39,6 +40,7 @@ logger = logging.getLogger(__name__)
 # Initialize tools
 github_analyzer = GitHubAnalyzer()
 api_caller = APICaller()
+image_generator = ImageGenerator()
 
 def get_llm():
     """Initialize and return the language model."""
@@ -86,7 +88,18 @@ def get_tools() -> List[Tool]:
         coroutine=_call_api_tool,
     )
 
-    return [analyze_repo_tool, call_api_tool]
+    async def _image_tool(name: str, kind: str = "icon", size: int = 1024):
+        """Generate an icon or banner image via DALL·E."""
+        return await image_generator.generate(name=name, kind=kind, size=size)
+
+    image_tool = StructuredTool.from_function(
+        func=_image_tool,
+        name="generate_image",
+        description="Generate an app icon or banner image via DALL·E given a name.",
+        coroutine=_image_tool,
+    )
+
+    return [analyze_repo_tool, call_api_tool, image_tool]
 
 def get_system_prompt() -> str:
     """Return the system prompt for the agent."""

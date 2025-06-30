@@ -61,6 +61,16 @@ class APICallResponse(BaseModel):
     is_success: bool
     error: Optional[str] = None
 
+class ImageGenRequest(BaseModel):
+    name: str = Field(..., description="App or feature name for the image prompt")
+    kind: str = Field("icon", description="Either 'icon' or 'banner'")
+    size: int = Field(1024, description="Size in px (icon: square; banner: height)")
+
+class ImageGenResponse(BaseModel):
+    url: HttpUrl
+    kind: str
+    name: str
+
 class ToolResult(BaseModel):
     tool_name: str
     result: Union[Dict[str, Any], str]

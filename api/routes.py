@@ -111,6 +111,19 @@ async def call_api(
         logger.error(f"Error making API call: {str(e)}", exc_info=True)
         raise HTTPException(status_code=500, detail=str(e))
 
+@router.post("/image/generate", response_model=models.ImageGenResponse)
+async def generate_image(request: models.ImageGenRequest):
+    """Generate an app icon or banner image given a name and kind."""
+    try:
+        from agents.tools.image_generator import ImageGenerator
+        generator = ImageGenerator()
+        result = await generator.generate(name=request.name, kind=request.kind, size=request.size)
+        return result
+    except Exception as e:
+        logger.error(f"Error generating image: {str(e)}", exc_info=True)
+        raise HTTPException(status_code=500, detail=str(e))
+
+
 @router.post("/sessions/{session_id}/clear")
 async def clear_session(
     session_id: str,

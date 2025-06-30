@@ -69,7 +69,10 @@ def display_chat_messages():
             if "tool_results" in message:
                 for tool_result in message["tool_results"]:
                     with st.expander(f"{tool_result['tool_name']} Results"):
-                        st.json(tool_result["result"], expanded=False)
+                        if isinstance(tool_result["result"], dict) and tool_result["result"].get("url"):
+                            st.image(tool_result["result"]["url"], caption=tool_result["result"].get("name"), use_column_width=True)
+                        else:
+                            st.json(tool_result["result"], expanded=False)
 
 def handle_user_input():
     """Handle user input and generate a response."""
